@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "security.jwtsecret",
+  "type": "java.lang.String",
+  "description": "The jwt secret string for HMAC256"
+}]}
