@@ -1,10 +1,13 @@
 package com.dulcenectar.java.models;
 
 import java.time.LocalDateTime;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+//import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,7 +29,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	private String firstName;
 	
@@ -45,8 +49,11 @@ public class User {
 	
 	@UpdateTimestamp
 	private LocalDateTime updated_at;
+	
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+//	List<Review> userReviews = new ArrayList<Review>();
 
-	public User(long id, String firstName, String lastName, String email, String password, Role role,
+	public User(Long id, String firstName, String lastName, String email, String password, Role role,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
@@ -67,16 +74,20 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+	
+	public User(long id) {
+		this.id = id;
+	}
 
 	public User() {
 		super();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -134,5 +145,20 @@ public class User {
 
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
+	}
+	
+//	public List<Review> getUserReviews() {
+//		return userReviews;
+//	}
+//
+//	public void setUserReviews(List<Review> userReviews) {
+//		this.userReviews = userReviews;
+//	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", role=" + role + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + "]";
 	}
 }
