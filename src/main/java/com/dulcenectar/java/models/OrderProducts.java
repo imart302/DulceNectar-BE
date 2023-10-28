@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,37 +23,32 @@ public class OrderProducts {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	
-	private long user_id;
-	
-	private long order_id;
-	
 	private long quantity;
 	
-	//private double subtotal;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
 	
-	
-	public OrderProducts(long id, long user_id, long order_id, long quantity) {
-		super();
-		this.id = id;
-		this.user_id = user_id;
-		this.order_id = order_id;
-		this.quantity = quantity;
-		//this.subtotal = subtotal;
-	}
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
 
-	  public OrderProducts(long id) {
+	public OrderProducts(long id, long quantity, Order order, Product product) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.order = order;
+		this.product = product;
+	}
+
+	public OrderProducts(long id) {
 		super();
 		this.id = id;
 	}
-     
+	
 	public OrderProducts() {
 		super();
 	}
-	 
-	//Setters and Getters
 
 	public long getId() {
 		return id;
@@ -59,22 +56,6 @@ public class OrderProducts {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
-
-	public long getOrder_id() {
-		return order_id;
-	}
-
-	public void setOrder_id(long order_id) {
-		this.order_id = order_id;
 	}
 
 	public long getQuantity() {
@@ -85,12 +66,20 @@ public class OrderProducts {
 		this.quantity = quantity;
 	}
 
-	//public double getSubtotal() {
-		//return subtotal;
-	//}
+	public Order getOrder() {
+		return order;
+	}
 
-	//public void setSubtotal(double subtotal) {
-		//this.subtotal = subtotal;
-	//}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
 }

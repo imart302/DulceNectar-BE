@@ -8,26 +8,26 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-public class Categories {
+public class Category {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	
-	public Categories(long id, String name) {
+	public Category(long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 	
-	public Categories(long id) {
+	public Category(long id) {
 		super();
 		this.id = id;
 	}
 	
 
-	public Categories() {
+	public Category() {
 		super();
 	}
 
