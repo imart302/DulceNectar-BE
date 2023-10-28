@@ -19,7 +19,7 @@ public class CreateUserResponseDto implements ResponseDto<User> {
 	}
 
 	public CreateUserResponseDto() {
-		
+		super();
 	}
 
 	public String getFirstName() {

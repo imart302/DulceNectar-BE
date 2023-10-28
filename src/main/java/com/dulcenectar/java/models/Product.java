@@ -9,7 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,13 +32,13 @@ public class Product {
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-	
+
 	// Category must be a Category object
 	
-	//@ManyToOne
-	//@JoinColumn(name="category_id", nullable=false)
-	//private Category category
-	
+	@ManyToOne
+	@JoinColumn(name="category_id", nullable=false)
+	private Category category;
+
 	public Product(Long id, String name, String info, Float gram, String imgUrl, Double price,
 			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();

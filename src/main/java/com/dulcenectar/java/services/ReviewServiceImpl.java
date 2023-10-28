@@ -7,9 +7,10 @@ import com.dulcenectar.java.models.Review;
 import com.dulcenectar.java.repositories.ReviewRepository;
 
 @Service
-public class ReviewService {
+public class ReviewServiceImpl {
 	
 	@Autowired ReviewRepository reviewrepository;
+	
 	
 	
 	public void postReviews(Review review) {

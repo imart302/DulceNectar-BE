@@ -3,15 +3,15 @@ package com.dulcenectar.java.models;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-//import org.hibernate.annotations.UpdateTimestamp;
 
-//import jakarta.persistence.Column;
+
+
 import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,26 +21,25 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	
-	private long user_id;
-	
-	private double total_gross;
-	
+	//private long user_id;
+	private double totalGross;
 	private String address;
-	
-	
 	@CreationTimestamp
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-	public Order(long id, long user_id, double total_gross, String address,
-			LocalDateTime created_at) {
+	public Order(long id, double total_gross, String address,
+			LocalDateTime createdAt, User user) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
-		this.total_gross = total_gross;
+		//this.user_id = user_id;
+		this.totalGross = total_gross;
 		this.address = address;
-		this.created_at = created_at;
+		this.createdAt = createdAt;
+		this.user = user;
 	}
 	
 	public Order(long id) {
@@ -52,9 +51,6 @@ public class Order {
 		super();
 	}
 
-	//Setters and Getters
-
-	
 	public long getId() {
 		return id;
 	}
@@ -63,35 +59,35 @@ public class Order {
 		this.id = id;
 	}
 
-	public long getUser_id() {
-		return user_id;
+	public double getTotalGross() {
+		return totalGross;
 	}
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
-
-	public double getTotal_gross() {
-		return total_gross;
-	}
-
-	public void setLastName(double total_gross) {
-		this.total_gross = total_gross;
+	public void setTotalGross(double totalGross) {
+		this.totalGross = totalGross;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setEmail(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
