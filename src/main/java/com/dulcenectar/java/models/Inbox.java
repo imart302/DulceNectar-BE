@@ -17,45 +17,78 @@ public class Inbox {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String message;
-	private String sender_email;
+	private String senderEmail;
+	private String phoneNumber;
+	private String name;
+	
 	@CreationTimestamp
-	private LocalDateTime created_at;
-	public Inbox(long id, String message, String sender_email, LocalDateTime created_at) {
+	private LocalDateTime createdAt;
+
+	public Inbox(long id, String message, String senderEmail, String phoneNumber, String name,
+			LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.message = message;
-		this.sender_email = sender_email;
-		this.created_at = created_at;
+		this.senderEmail = senderEmail;
+		this.phoneNumber = phoneNumber;
+		this.name = name;
+		this.createdAt = createdAt;
 	}
+	
 	public Inbox(long id) {
 		super();
 		this.id = id;
 	}
+	
 	public Inbox() {
 		super();
 	}
+	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public String getMessage() {
 		return message;
 	}
+	
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getSender_email() {
-		return sender_email;
+	
+	public String getSenderEmail() {
+		return senderEmail;
 	}
-	public void setSender_email(String sender_email) {
-		this.sender_email = sender_email;
+	
+	public void setSenderEmail(String senderEmail) {
+		this.senderEmail = senderEmail;
 	}
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
-	}	
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 }
