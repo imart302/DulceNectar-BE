@@ -22,8 +22,8 @@ public class OrderProducts {
 	//Se pone porque Spring se quejó
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	private long quantity;
+	private Integer id;
+	private Integer quantity;
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -33,7 +33,7 @@ public class OrderProducts {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	public OrderProducts(long id, long quantity, Order order, Product product) {
+	public OrderProducts(Integer id, Integer quantity, Order order, Product product) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
@@ -41,7 +41,7 @@ public class OrderProducts {
 		this.product = product;
 	}
 
-	public OrderProducts(long id) {
+	public OrderProducts(Integer id) {
 		super();
 		this.id = id;
 	}
@@ -54,15 +54,15 @@ public class OrderProducts {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public long getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -80,6 +80,11 @@ public class OrderProducts {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderProducts [id=" + id + ", quantity=" + quantity + ", product=" + product + "]";
 	}
 	
 }
