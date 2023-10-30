@@ -19,7 +19,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String name;
 	private String info;
 
@@ -33,14 +33,13 @@ public class Product {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
-	// Category must be a Category object
 	
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
 
-	public Product(Long id, String name, String info, Float gram, String imgUrl, Double price,
-			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Product(Integer id, String name, String info, Float gram, String imgUrl, Double price,
+			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,9 +51,10 @@ public class Product {
 		this.typeGram = typeGram;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.category = category;
 	}
 	
-	public Product(Long id) {
+	public Product(Integer id) {
 		this.id = id;
 	}
 	
@@ -62,11 +62,11 @@ public class Product {
 		
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -140,6 +140,14 @@ public class Product {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override
