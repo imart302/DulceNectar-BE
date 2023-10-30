@@ -29,7 +29,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	private String firstName;
 	
@@ -53,7 +53,7 @@ public class User {
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 //	List<Review> userReviews = new ArrayList<Review>();
 
-	public User(Long id, String firstName, String lastName, String email, String password, Role role,
+	public User(Integer id, String firstName, String lastName, String email, String password, Role role,
 			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
@@ -66,7 +66,7 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 	
-	public User(long id, String firstName, String lastName, String email, String password) {
+	public User(Integer id, String firstName, String lastName, String email, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -75,7 +75,7 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(long id) {
+	public User(Integer id) {
 		this.id = id;
 	}
 
@@ -83,11 +83,11 @@ public class User {
 		super();
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -147,13 +147,6 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 	
-//	public List<Review> getUserReviews() {
-//		return userReviews;
-//	}
-//
-//	public void setUserReviews(List<Review> userReviews) {
-//		this.userReviews = userReviews;
-//	}
 
 	@Override
 	public String toString() {
