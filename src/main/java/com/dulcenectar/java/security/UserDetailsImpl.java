@@ -16,9 +16,17 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	private static final long serialVersionUID = -1833377617454173091L;
 	
+	private Integer id;
 	private String email;
 	private String password;
 	private User.Role role;
+	
+	public UserDetailsImpl(Integer id, String email, String password, User.Role role) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
 	
 	public UserDetailsImpl(String email, String password, User.Role role) {
 		this.email = email;
@@ -26,6 +34,15 @@ public class UserDetailsImpl implements UserDetails {
 		this.role = role;
 	}
 	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority((role.name())));
@@ -59,6 +76,11 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDetailsImpl [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
 	
 }
