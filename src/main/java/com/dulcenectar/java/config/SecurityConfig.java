@@ -55,6 +55,8 @@ public class SecurityConfig {
 						.requestMatchers("/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/product").permitAll()
 						.requestMatchers(HttpMethod.POST, "/product").hasAnyAuthority("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/inbox").hasAnyAuthority("ADMIN")
+						.requestMatchers(HttpMethod.DELETE, "/inbox/**").hasAnyAuthority("ADMIN")
 						.anyRequest().permitAll())
 				.sessionManagement(
 						sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
