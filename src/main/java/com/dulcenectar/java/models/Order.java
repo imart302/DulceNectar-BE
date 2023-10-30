@@ -1,28 +1,30 @@
 package com.dulcenectar.java.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	//private long user_id;
-	private double totalGross;
+	private Integer id;
+	private Double totalGross;
 	private String address;
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -30,19 +32,22 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@OneToMany(mappedBy="order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<OrderProducts> orderProducts;
 
-	public Order(long id, double total_gross, String address,
-			LocalDateTime createdAt, User user) {
+	public Order(Integer id, Double totalGross, String address, LocalDateTime createdAt, User user,
+			List<OrderProducts> orderProducts) {
 		super();
 		this.id = id;
-		//this.user_id = user_id;
-		this.totalGross = total_gross;
+		this.totalGross = totalGross;
 		this.address = address;
 		this.createdAt = createdAt;
 		this.user = user;
+		this.orderProducts = orderProducts;
 	}
 	
-	public Order(long id) {
+	public Order(Integer id) {
 		super();
 		this.id = id;
 	}
@@ -55,7 +60,7 @@ public class Order {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -75,6 +80,14 @@ public class Order {
 		this.address = address;
 	}
 
+	public List<OrderProducts> getOrderProducts() {
+		return this.orderProducts;
+	}
+
+	public void setOrderProducts(List<OrderProducts> orderProducts) {
+		this.orderProducts = orderProducts;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -90,4 +103,11 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", totalGross=" + totalGross + ", address=" + address + ", createdAt=" + createdAt
+				+ ", user=" + user + ", orderProducts=" + orderProducts + "]";
+	}
+		
 }
