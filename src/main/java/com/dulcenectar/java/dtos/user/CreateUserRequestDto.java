@@ -4,13 +4,13 @@ import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.User;
 
 public class CreateUserRequestDto implements RequestDto<User> {
-	private long id;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 
-	public CreateUserRequestDto(long id, String firstName, String lastName, String email) {
+	public CreateUserRequestDto(Integer id, String firstName, String lastName, String email) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -22,11 +22,11 @@ public class CreateUserRequestDto implements RequestDto<User> {
 		super();
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

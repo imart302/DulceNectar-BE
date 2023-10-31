@@ -29,31 +29,31 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	protected Integer id;
 	
-	private String firstName;
+	protected String firstName;
 	
-	private String lastName;
+	protected String lastName;
 	
-	private String email;
+	protected String email;
 	
-	private String password;
+	protected String password;
 	
 
 	@Column(length = 32, columnDefinition = "roles default roles.USER")
 	@Enumerated(value=EnumType.STRING)
-	private Role role = Role.USER;
+	protected Role role = Role.USER;
 	
 	@CreationTimestamp
-	private LocalDateTime created_at;
+	protected LocalDateTime created_at;
 	
 	@UpdateTimestamp
-	private LocalDateTime updated_at;
+	protected LocalDateTime updated_at;
 	
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 //	List<Review> userReviews = new ArrayList<Review>();
 
-	public User(Long id, String firstName, String lastName, String email, String password, Role role,
+	public User(Integer id, String firstName, String lastName, String email, String password, Role role,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
@@ -66,7 +66,7 @@ public class User {
 		this.updated_at = updated_at;
 	}
 	
-	public User(long id, String firstName, String lastName, String email, String password) {
+	public User(Integer id, String firstName, String lastName, String email, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -75,7 +75,7 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(long id) {
+	public User(Integer id) {
 		this.id = id;
 	}
 
@@ -83,11 +83,11 @@ public class User {
 		super();
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
