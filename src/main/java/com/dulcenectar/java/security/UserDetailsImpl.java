@@ -17,7 +17,6 @@ public class UserDetailsImpl extends User implements UserDetails {
 	 */
 	private static final long serialVersionUID = -1833377617454173091L;
 	
-
 	public UserDetailsImpl() {
 		super();
 	}
@@ -37,6 +36,7 @@ public class UserDetailsImpl extends User implements UserDetails {
 
 	public Integer getId() {
 		return this.getId();
+
 	}
 
 	public void setId(Integer id) {
@@ -78,5 +78,9 @@ public class UserDetailsImpl extends User implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDetailsImpl [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
+	}
 	
 }

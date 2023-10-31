@@ -1,49 +1,53 @@
 package com.dulcenectar.java.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-//import org.hibernate.annotations.UpdateTimestamp;
 
-//import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	
-	private long user_id;
-	
-	private double total_gross;
-	
+	private Integer id;
+	private Double totalGross;
 	private String address;
-	
-	
 	@CreationTimestamp
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@OneToMany(mappedBy="order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<OrderProducts> orderProducts;
 
-	public Order(long id, long user_id, double total_gross, String address,
-			LocalDateTime created_at) {
+	public Order(Integer id, Double totalGross, String address, LocalDateTime createdAt, User user,
+			List<OrderProducts> orderProducts) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
-		this.total_gross = total_gross;
+		this.totalGross = totalGross;
 		this.address = address;
-		this.created_at = created_at;
+		this.createdAt = createdAt;
+		this.user = user;
+		this.orderProducts = orderProducts;
 	}
 	
-	public Order(long id) {
+	public Order(Integer id) {
 		super();
 		this.id = id;
 	}
@@ -52,46 +56,58 @@ public class Order {
 		super();
 	}
 
-	//Setters and Getters
-
-	
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public long getUser_id() {
-		return user_id;
+	public double getTotalGross() {
+		return totalGross;
 	}
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
-
-	public double getTotal_gross() {
-		return total_gross;
-	}
-
-	public void setLastName(double total_gross) {
-		this.total_gross = total_gross;
+	public void setTotalGross(double totalGross) {
+		this.totalGross = totalGross;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setEmail(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public List<OrderProducts> getOrderProducts() {
+		return this.orderProducts;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setOrderProducts(List<OrderProducts> orderProducts) {
+		this.orderProducts = orderProducts;
 	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", totalGross=" + totalGross + ", address=" + address + ", createdAt=" + createdAt
+				+ ", user=" + user + ", orderProducts=" + orderProducts + "]";
+	}
+		
 }

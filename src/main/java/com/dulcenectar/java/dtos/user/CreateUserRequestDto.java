@@ -4,32 +4,24 @@ import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.User;
 
 public class CreateUserRequestDto implements RequestDto<User> {
-	private Integer id;
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 
-	public CreateUserRequestDto(Integer id, String firstName, String lastName, String email) {
+	public CreateUserRequestDto(String firstName, String lastName, String email, String password) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 	}
 
 	public CreateUserRequestDto() {
 		super();
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+  
 	public String getFirstName() {
 		return firstName;
 	}
@@ -64,7 +56,12 @@ public class CreateUserRequestDto implements RequestDto<User> {
 
 	@Override
 	public User toEntity() {
-		return new User(this.id, this.firstName, this.lastName, this.email, this.password);
+		User user = new User();
+		user.setEmail(this.email);
+		user.setFirstName(this.firstName);
+		user.setLastName(this.lastName);
+		user.setPassword(this.password);
+		return user;
 	}
 
 }
