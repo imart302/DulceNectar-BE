@@ -19,57 +19,55 @@ public class Review {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	//@ManyToOne
-	//@JoinColumn(name = "user_id")
-	//private User user;
-	
-	private long user_id;
+	private Integer id;
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 	private String review;
 	private int rating;
-	
-	//@ManyToOne
-	//@JoinColumn(name = "product_id")
-	//private Product product;
+	@ManyToOne
+	@JoinColumn(name = "product_id", nullable = false)
+	private Product product;
 	
 	@CreationTimestamp
 	private LocalDateTime created_at;
-	
 	@UpdateTimestamp
 	private LocalDateTime updated_at;
 
-	public Review(Long id, long user_id, String review, int rating, LocalDateTime created_at,
+	
+	public Review(Integer id, User user, String review, int rating, Product product, LocalDateTime created_at,
 			LocalDateTime updated_at) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
+		this.user = user;
 		this.review = review;
 		this.rating = rating;
+		this.product = product;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
-	
-	public Review (Long id) {
+
+	public Review (Integer id) {
 		this.id = id;
 	}
 	
 	public Review () {}
+	
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public long getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getReview() {
@@ -88,6 +86,14 @@ public class Review {
 		this.rating = rating;
 	}
 
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
@@ -104,11 +110,10 @@ public class Review {
 		this.updated_at = updated_at;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", user_id=" + user_id + ", review=" + review + ", rating=" + rating
-				+ ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
-	}
-
-	
+		return "Review [id=" + id + ", user=" + user + ", review=" + review + ", rating=" + rating + ", product="
+				+ product + ", created_at=" + created_at + ", updated_at=" + updated_at + "]";
+	}	
 }

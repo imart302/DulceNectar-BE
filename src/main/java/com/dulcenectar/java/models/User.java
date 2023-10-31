@@ -29,26 +29,28 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+
+	protected Integer id;
 	
-	private String firstName;
+	protected String firstName;
 	
-	private String lastName;
+	protected String lastName;
 	
-	private String email;
+	protected String email;
 	
-	private String password;
+	protected String password;
 	
 
 	@Column(length = 32, columnDefinition = "roles default roles.USER")
 	@Enumerated(value=EnumType.STRING)
-	private Role role = Role.USER;
+	protected Role role = Role.USER;
 	
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+
 	
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 //	List<Review> userReviews = new ArrayList<Review>();

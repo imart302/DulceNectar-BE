@@ -1,5 +1,6 @@
 package com.dulcenectar.java.security;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,34 +10,33 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.dulcenectar.java.models.User;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl extends User implements UserDetails {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1833377617454173091L;
 	
-	private Integer id;
-	private String email;
-	private String password;
-	private User.Role role;
-	
-	public UserDetailsImpl(Integer id, String email, String password, User.Role role) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.role = role;
+	public UserDetailsImpl() {
+		super();
 	}
-	
-	public UserDetailsImpl(String email, String password, User.Role role) {
-		this.email = email;
-		this.password = password;
-		this.role = role;
+
+	public UserDetailsImpl(Integer id, String firstName, String lastName, String email, String password, Role role,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
+		super(id, firstName, lastName, email, password, role, createdAt, updatedAt);
 	}
-	
-	
+
+	public UserDetailsImpl(Integer id, String firstName, String lastName, String email, String password) {
+		super(id, firstName, lastName, email, password);
+	}
+
+	public UserDetailsImpl(Integer id) {
+		super(id);
+	}
+
 	public Integer getId() {
-		return id;
+		return this.getId();
+
 	}
 
 	public void setId(Integer id) {
@@ -50,7 +50,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return password;
+		return this.getPassword();
 	}
 
 	@Override
