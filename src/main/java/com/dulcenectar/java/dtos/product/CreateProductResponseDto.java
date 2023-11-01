@@ -1,10 +1,11 @@
 package com.dulcenectar.java.dtos.product;
 
-import com.dulcenectar.java.dtos.RequestDto;
+import com.dulcenectar.java.dtos.ResponseDto;
 import com.dulcenectar.java.models.Product;
 
-public class CreateProductRequestDto implements RequestDto <Product>{
-	
+public class CreateProductResponseDto implements ResponseDto<Product> {
+
+	private long id;
 	private String name;
 	private String info;
 	private Float gram;
@@ -12,13 +13,13 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 	private Double price;
 	private Long stock;
 	private String typeGram;
-	private String category;
-
-
+	//Necesitaremos devolver las fechas de creacion/modificacion?
+	
 	//Constructor
-	public CreateProductRequestDto(String name, String info, Float gram, String imgUrl, Double price, Long stock,
-			String typeGram, String category) {
+	public CreateProductResponseDto(long id, String name, String info, Float gram, String imgUrl, Double price,
+			Long stock, String typeGram) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.info = info;
 		this.gram = gram;
@@ -28,12 +29,20 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 		this.typeGram = typeGram;
 	}
 	
-	//Void constructor
-	public CreateProductRequestDto() {
+	//Void Constructor
+	public CreateProductResponseDto() {
 		
 	}
+	
+	//Getters and Setters
+	public long getId() {
+		return id;
+	}
 
-	//Getters and setters
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -90,26 +99,24 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 		this.typeGram = typeGram;
 	}
 	
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
+	@Override
+	public CreateProductResponseDto fromEntity(Product entity) {
+		this.id = entity.getId();
+		this.name = entity.getName();
+		this.info = entity.getInfo();
+		this.gram = entity.getGram();
+		this.imgUrl = entity.getImgUrl();
+		this.price = entity.getPrice();
+		this.stock = entity.getStock();
+		this.typeGram = entity.getTypeGram();
+		
+		return this;
 	}
 	
-	@Override
-	public Product toEntity() {
-		Product product = new Product();
-		product.setName(this.name);
-		product.setInfo(this.info);
-		product.setGram(this.gram);
-		product.setImgUrl(this.imgUrl);
-		product.setPrice(this.price);
-		product.setStock(this.stock);
-		product.setTypeGram(this.typeGram);
-		
-		return product;
-	}
+	
+	
+	
+	
+	
 	
 }
