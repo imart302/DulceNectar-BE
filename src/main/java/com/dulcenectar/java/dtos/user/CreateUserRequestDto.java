@@ -21,7 +21,7 @@ public class CreateUserRequestDto implements RequestDto<User> {
 	public CreateUserRequestDto() {
 		super();
 	}
-
+  
 	public String getFirstName() {
 		return firstName;
 	}
