@@ -46,10 +46,10 @@ public class User {
 	protected Role role = Role.USER;
 	
 	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
+    protected LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    protected LocalDateTime updatedAt;
 
 	
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
