@@ -34,15 +34,6 @@ public class UserDetailsImpl extends User implements UserDetails {
 		super(id);
 	}
 
-	public Integer getId() {
-		return this.getId();
-
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority((role.name())));

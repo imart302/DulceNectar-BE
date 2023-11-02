@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("No existe el usuario");
 
         return new UserDetailsImpl(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getPassword(),
-                u.getRole(), u.getCreated_at(), u.getUpdated_at());
+                u.getRole(), u.getCreatedAt(), u.getUpdatedAt());
     }
 
 }
