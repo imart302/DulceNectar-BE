@@ -2,15 +2,20 @@ package com.dulcenectar.java.services.interfaces;
 
 import java.util.ArrayList;
 
+import com.dulcenectar.java.dtos.review.CreateReviewDto;
 import com.dulcenectar.java.dtos.review.ResponseReviewDto;
-import com.dulcenectar.java.models.Review;
+import com.dulcenectar.java.dtos.review.UpdateReviewDto;
 
 public interface IReviewService {
 	
 	
 	public ArrayList<ResponseReviewDto> getReviews();
 	
-	public void saveReview( Review review );
+	public ResponseReviewDto saveReview(CreateReviewDto review);
 	
-	public void deleteReview( Integer id ); 
+	public ResponseReviewDto deleteReview( Integer id ); 
+	
+	public ResponseReviewDto updateReview(Integer id, UpdateReviewDto review);
+
+	
 }
