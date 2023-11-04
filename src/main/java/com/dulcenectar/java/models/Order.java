@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.dulcenectar.java.dtos.order.CreateOrderRequestDto;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +25,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private Double totalGross;
 	private String address;
 	@CreationTimestamp
@@ -36,7 +38,7 @@ public class Order {
 	@OneToMany(mappedBy="order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<OrderProducts> orderProducts;
 
-	public Order(Integer id, Double totalGross, String address, LocalDateTime createdAt, User user,
+	public Order(Long id, Double totalGross, String address, LocalDateTime createdAt, User user,
 			List<OrderProducts> orderProducts) {
 		super();
 		this.id = id;
@@ -47,7 +49,7 @@ public class Order {
 		this.orderProducts = orderProducts;
 	}
 	
-	public Order(Integer id) {
+	public Order(Long id) {
 		super();
 		this.id = id;
 	}
@@ -56,13 +58,13 @@ public class Order {
 		super();
 	}
 
-	public long getId() {
+	public void setId(Long orderId) {
+		this.id = orderId;
+	}
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public double getTotalGross() {
 		return totalGross;
@@ -109,5 +111,4 @@ public class Order {
 		return "Order [id=" + id + ", totalGross=" + totalGross + ", address=" + address + ", createdAt=" + createdAt
 				+ ", user=" + user + ", orderProducts=" + orderProducts + "]";
 	}
-		
 }
