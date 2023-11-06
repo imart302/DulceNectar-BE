@@ -3,7 +3,6 @@ package com.dulcenectar.java.dtos.review;
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.Review;
 
-
 public class UpdateReviewDto implements RequestDto<Review> {
 
 	String review;

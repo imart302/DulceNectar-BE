@@ -1,5 +1,7 @@
 package com.dulcenectar.java.controllers;
 
+import java.util.ArrayList;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +31,8 @@ public class ProductController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<Object> getAllProducts(){
-		return new ResponseEntity<Object>("Everyone should see products", HttpStatus.OK);
+	public ResponseEntity< ArrayList <CreateProductResponseDto>> getProductsList(){
+		return new ResponseEntity< ArrayList <CreateProductResponseDto>>(productServices.getProductsList(), HttpStatus.OK);
 	}
 	
 	@PostMapping()
@@ -42,12 +44,14 @@ public class ProductController {
 	@PutMapping(path ="/{id}")
 	//Aqui va una cosa de PathAvriable
 	//Tmabien se recibe un @RequestBody
-	public ResponseEntity<Object> updateProduct(){
-		return new ResponseEntity<Object>("If you can see this, you are ADMIN", HttpStatus.OK);
+	public ResponseEntity<CreateProductResponseDto> updateProduct(@PathVariable Integer id, @RequestBody CreateProductRequestDto productModifyRequest){
+		CreateProductResponseDto updatedProduct = productServices.updateProduct(id, productModifyRequest);
+		return new ResponseEntity<CreateProductResponseDto>(updatedProduct, HttpStatus.OK);
 	}
 	
-	@DeleteMapping()
-	public ResponseEntity<Object> deleteProduct(){
-		return new ResponseEntity<Object>("If you can see this, you are ADMIN", HttpStatus.OK);
+	@DeleteMapping(path = "{id}")
+	public ResponseEntity<Object> deleteProduct(@PathVariable Integer id){
+		productServices.deleteProduct(id);
+		return new ResponseEntity<Object>("Succesfully deleted", HttpStatus.OK);
 	}
 }

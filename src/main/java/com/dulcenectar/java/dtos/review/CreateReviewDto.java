@@ -9,7 +9,6 @@ public class CreateReviewDto implements RequestDto<Review>{
 	Integer rating;
 	Integer productId;
 	
-	
 	public CreateReviewDto(String review, Integer rating, Integer productId) {
 		super();
 		this.review = review;

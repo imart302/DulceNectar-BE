@@ -1,11 +1,12 @@
 package com.dulcenectar.java.dtos.product;
 
 import com.dulcenectar.java.dtos.ResponseDto;
+import com.dulcenectar.java.models.Category;
 import com.dulcenectar.java.models.Product;
 
 public class CreateProductResponseDto implements ResponseDto<Product> {
 
-	private long id;
+	private Integer id;
 	private String name;
 	private String info;
 	private Float gram;
@@ -13,11 +14,11 @@ public class CreateProductResponseDto implements ResponseDto<Product> {
 	private Double price;
 	private Long stock;
 	private String typeGram;
-	//Necesitaremos devolver las fechas de creacion/modificacion?
+	private Category category;
 	
 	//Constructor
-	public CreateProductResponseDto(long id, String name, String info, Float gram, String imgUrl, Double price,
-			Long stock, String typeGram) {
+	public CreateProductResponseDto(Integer id, String name, String info, Float gram, String imgUrl, Double price,
+			Long stock, String typeGram, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,6 +28,7 @@ public class CreateProductResponseDto implements ResponseDto<Product> {
 		this.price = price;
 		this.stock = stock;
 		this.typeGram = typeGram;
+		this.category = category;
 	}
 	
 	//Void Constructor
@@ -39,7 +41,7 @@ public class CreateProductResponseDto implements ResponseDto<Product> {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -99,6 +101,15 @@ public class CreateProductResponseDto implements ResponseDto<Product> {
 		this.typeGram = typeGram;
 	}
 	
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@Override
 	public CreateProductResponseDto fromEntity(Product entity) {
 		this.id = entity.getId();
@@ -109,6 +120,7 @@ public class CreateProductResponseDto implements ResponseDto<Product> {
 		this.price = entity.getPrice();
 		this.stock = entity.getStock();
 		this.typeGram = entity.getTypeGram();
+		this.category = entity.getCategory();
 		
 		return this;
 	}
