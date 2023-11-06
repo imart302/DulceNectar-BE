@@ -37,6 +37,25 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
+/*
+ * Quiza este no se necesie, como mencionaan en la clase, Oder no tiene relacion fundamental con las ordenes, mas que nada User es el que usa las orderPoducts
+ * @OneToMany(mappedBy = "Product")
+ * Private Set<OrderProducts> orderProduct;
+ * 
+ */
+
+/*
+ * Aqui,  EN el conolador de reviews ya hay un et rEviews, se necesiaia aqui?`
+ * El frontEnd no usa ninguna paina que muestre los reviews de un producto, pero tiene una seccion con todas las reviews
+ * En esa seccion se haía un filtro
+ * @OneToMany(mappedBy = "Product")
+ * Private Set<Review> = reviewsList;
+ * 
+ */
+
+
+	
+
 
 	public Product(Integer id, String name, String info, Float gram, String imgUrl, Double price,
 			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt, Category category) {

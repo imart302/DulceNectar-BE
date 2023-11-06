@@ -55,7 +55,7 @@ public class SecurityConfig {
 						.requestMatchers("/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/product").permitAll()
 						.requestMatchers(HttpMethod.POST, "/product").hasAnyAuthority("ADMIN")
-						//Como se agrega el path variable?
+
 						//.requestMatchers(HttpMethod.PUT, "/product").hasAnyAuthority("ADMIN")
 						//.requestMatchers(HttpMethod.DELETE, "/product").hasAnyAuthority("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/reviews").permitAll()

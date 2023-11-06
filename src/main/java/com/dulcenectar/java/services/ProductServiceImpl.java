@@ -35,8 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	public CreateProductResponseDto createProduct(CreateProductRequestDto product) {
 		
 		Optional<Category> category = this.categoryRepository.findByName(product.getCategory());
-		category.orElseThrow(() -> new NoSuchElementException("Esta Categoría no se encuentra"));
-		
+		category.orElseThrow(() -> new NoSuchElementException("Esta Categoría no se encuentra"));//Devuelve Error 500
 		Product newProduct = product.toEntity();
 		newProduct.setCategory(category.get());
 		newProduct = this.productRepository.save(newProduct);
