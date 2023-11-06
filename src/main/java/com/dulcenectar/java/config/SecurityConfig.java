@@ -55,6 +55,10 @@ public class SecurityConfig {
 						.requestMatchers("/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/product").permitAll()
 						.requestMatchers(HttpMethod.POST, "/product").hasAnyAuthority("ADMIN")
+
+						//.requestMatchers(HttpMethod.PUT, "/product").hasAnyAuthority("ADMIN")
+						//.requestMatchers(HttpMethod.DELETE, "/product").hasAnyAuthority("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/reviews").permitAll()
 						.requestMatchers(HttpMethod.GET, "/review").permitAll()
 						.requestMatchers(HttpMethod.POST, "/review").hasAnyAuthority("USER")
 						.requestMatchers(HttpMethod.DELETE, "/review/**").hasAnyAuthority("USER")
