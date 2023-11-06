@@ -44,7 +44,7 @@ public class ReviewServiceImpl implements IReviewService {
 		UserDetailsImpl currentUser = (UserDetailsImpl)authentication.getPrincipal();
 		
 		Optional<Product> product = productRepository.findById(review.getProductId());
-		//if(product.isEmpty()) throw new ProductNotFoundException; 
+		if(product.isEmpty()) throw new ProductNotFoundException; 
 		
 		Review reviewEntity = review.toEntity();
 		reviewEntity.setProduct(product.get());
