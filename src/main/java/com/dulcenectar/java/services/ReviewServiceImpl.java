@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.dulcenectar.java.dtos.review.CreateReviewDto;
 import com.dulcenectar.java.dtos.review.ResponseReviewDto;
 import com.dulcenectar.java.dtos.review.UpdateReviewDto;
+import com.dulcenectar.java.exceptions.ProductNotFoundException;
 import com.dulcenectar.java.exceptions.ReviewNotFoundException;
 import com.dulcenectar.java.models.Product;
 import com.dulcenectar.java.models.Review;
@@ -44,7 +45,7 @@ public class ReviewServiceImpl implements IReviewService {
 		UserDetailsImpl currentUser = (UserDetailsImpl)authentication.getPrincipal();
 		
 		Optional<Product> product = productRepository.findById(review.getProductId());
-		if(product.isEmpty()) throw new ProductNotFoundException; 
+		if(product.isEmpty()) throw new ProductNotFoundException(); 
 		
 		Review reviewEntity = review.toEntity();
 		reviewEntity.setProduct(product.get());
@@ -80,7 +81,7 @@ public class ReviewServiceImpl implements IReviewService {
 		
 		Review initialReview = reviewDb.get();
 		Optional<Product> productDb = productRepository.findById(review.getProductId());
-		//if(productDb.isEmpty()) throw new ProductNotFoundException();
+		if(productDb.isEmpty()) throw new ProductNotFoundException();
 		
 		Product entityProduct = productDb.get();
 		initialReview.setUser(currentUser);

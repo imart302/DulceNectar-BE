@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dulcenectar.java.dtos.product.CreateProductRequestDto;
 import com.dulcenectar.java.dtos.product.CreateProductResponseDto;
+import com.dulcenectar.java.exceptions.CategoryNotFoundException;
 import com.dulcenectar.java.exceptions.ProductNotFoundException;
 import com.dulcenectar.java.models.Category;
 import com.dulcenectar.java.models.Product;
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 	public CreateProductResponseDto createProduct(CreateProductRequestDto product) {
 		
 		Optional<Category> category = this.categoryRepository.findByName(product.getCategory());
-		category.orElseThrow(() -> new NoSuchElementException("Esta Categoría no se encuentra"));//Devuelve Error 500
+		category.orElseThrow(() -> new CategoryNotFoundException());
 		Product newProduct = product.toEntity();
 		newProduct.setCategory(category.get());
 		newProduct = this.productRepository.save(newProduct);
@@ -59,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 		productFromDB.orElseThrow(() -> new ProductNotFoundException());
 		
 		Optional<Category> category = this.categoryRepository.findByName(productModifyRequest.getCategory());
-		category.orElseThrow(() -> new NoSuchElementException("Esta Categoría no xse encuentra"));
+		category.orElseThrow(() -> new CategoryNotFoundException());
 		
 		Product productInfo = productFromDB.get();
 		
@@ -72,7 +73,9 @@ public class ProductServiceImpl implements ProductService {
 		productInfo.setTypeGram(productModifyRequest.getTypeGram());
 		productInfo.setCategory(category.get());
 		
-		productRepository.save(productInfo);
+		productRepository.save(productInfo);  
+		
+		
 		
 		CreateProductResponseDto updatedProduct = new CreateProductResponseDto().fromEntity(productInfo);
 		
