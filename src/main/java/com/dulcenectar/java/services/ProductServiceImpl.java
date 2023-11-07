@@ -1,7 +1,6 @@
 package com.dulcenectar.java.services;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -59,23 +58,23 @@ public class ProductServiceImpl implements ProductService {
 		Optional <Product> productFromDB = productRepository.findById(id);
 		productFromDB.orElseThrow(() -> new ProductNotFoundException());
 		
-		Optional<Category> category = this.categoryRepository.findByName(productModifyRequest.getCategory());
-		category.orElseThrow(() -> new CategoryNotFoundException());
-		
 		Product productInfo = productFromDB.get();
 		
-		productInfo.setName(productModifyRequest.getName());
-		productInfo.setInfo(productModifyRequest.getInfo());
-		productInfo.setGram(productModifyRequest.getGram());
-		productInfo.setImgUrl(productModifyRequest.getImgUrl());
-		productInfo.setPrice(productModifyRequest.getPrice());
-		productInfo.setStock(productModifyRequest.getStock());
-		productInfo.setTypeGram(productModifyRequest.getTypeGram());
-		productInfo.setCategory(category.get());
+		if(productModifyRequest.getCategory() !=  null) {
+			Optional<Category> category = this.categoryRepository.findByName(productModifyRequest.getCategory());
+			category.orElseThrow(() -> new CategoryNotFoundException());
+			productInfo.setCategory(category.get());
+		}
+		
+		if(productModifyRequest.getName() != null) productInfo.setName(productModifyRequest.getName());
+		if(productModifyRequest.getInfo() != null) productInfo.setInfo(productModifyRequest.getInfo());
+		if(productModifyRequest.getGram() != null) productInfo.setGram(productModifyRequest.getGram());
+		if(productModifyRequest.getImgUrl() != null) productInfo.setImgUrl(productModifyRequest.getImgUrl());
+		if(productModifyRequest.getPrice() != null) productInfo.setPrice(productModifyRequest.getPrice());
+		if(productModifyRequest.getStock() != null) productInfo.setStock(productModifyRequest.getStock());
+		if(productModifyRequest.getTypeGram() != null) productInfo.setTypeGram(productModifyRequest.getTypeGram());
 		
 		productRepository.save(productInfo);  
-		
-		
 		
 		CreateProductResponseDto updatedProduct = new CreateProductResponseDto().fromEntity(productInfo);
 		
@@ -91,10 +90,6 @@ public class ProductServiceImpl implements ProductService {
 		;
 	}
 	
-		
-	
-
-
 }
 
 

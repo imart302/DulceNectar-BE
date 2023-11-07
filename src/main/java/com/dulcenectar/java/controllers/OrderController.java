@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import com.dulcenectar.java.dtos.order.CreateOrderRequestDto;
@@ -21,10 +20,10 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Long> createOrder(@RequestBody CreateOrderRequestDto orderRequest) {
-		Long id = this.orderService.createNewOrder(orderRequest);
+	public ResponseEntity<Integer> createOrder(@RequestBody CreateOrderRequestDto orderRequest) {
+		Integer id = this.orderService.createNewOrder(orderRequest);
 		
-		return new ResponseEntity<Long>(id, HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(id, HttpStatus.CREATED);
 	}
 	@GetMapping
 	public ResponseEntity<List<GetOrderResponseDto>> getAllOrders(){

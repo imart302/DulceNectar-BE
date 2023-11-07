@@ -1,7 +1,5 @@
 package com.dulcenectar.java.dtos.product;
 
-import java.util.List;
-
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.Product;
 
@@ -113,7 +111,5 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 		
 		return product;
 	}
-	
-	
 	
 }

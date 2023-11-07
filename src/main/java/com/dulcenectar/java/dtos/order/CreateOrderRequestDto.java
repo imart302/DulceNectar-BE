@@ -2,7 +2,6 @@ package com.dulcenectar.java.dtos.order;
 
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.Order;
-import com.dulcenectar.java.models.User;
 
 import java.util.List;
 
