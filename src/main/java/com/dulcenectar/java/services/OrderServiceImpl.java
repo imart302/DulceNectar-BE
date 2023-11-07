@@ -34,18 +34,16 @@ public class OrderServiceImpl implements OrderService {
 		this.orderProductsRepository = orderProductsRepository;
 	}
 
-    public Long createNewOrder(CreateOrderRequestDto order) {
+    public Integer createNewOrder(CreateOrderRequestDto order) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
 		
 		List<CreateOrderRequestDto.OrderItem> orderItems = order.getOrderItems();
-	
 		
 		Order orderEntity = new Order();
 		orderEntity.setUser(user);
 		orderEntity.setAddress(order.getAddress());
 		orderEntity.setTotalGross(order.getTotalGross());
-		
 		Order savedOrder = this.orderRepository.save(orderEntity);
 		
 		List<OrderProducts> orderProductList = orderItems.stream().map((item) -> {
@@ -53,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
 			op.setOrder(savedOrder);
 			op.setQuantity(item.getQuantity());
 			op.setProduct(new Product(item.getProductId()));
+			op.setId(new OrderProducts.OrderProductId(savedOrder.getId(), item.getProductId()));
 			return op;
 		}).toList();
 		

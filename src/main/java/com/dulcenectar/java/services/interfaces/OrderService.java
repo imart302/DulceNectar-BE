@@ -7,7 +7,7 @@ import com.dulcenectar.java.dtos.order.GetOrderResponseDto;
 
 
 public interface OrderService {
-	public Long createNewOrder(CreateOrderRequestDto order);
+	public Integer createNewOrder(CreateOrderRequestDto order);
 	public List<GetOrderResponseDto> getOrders();
 	public String deleteOrder(Integer orderId);
 }
