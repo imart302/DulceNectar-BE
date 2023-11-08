@@ -1,5 +1,7 @@
 package com.dulcenectar.java.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,9 +16,10 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        // You can customize these settings to meet your specific requirements
         config.addAllowedOriginPattern("*");
-        config.applyPermitDefaultValues();
+        
+        config.addAllowedMethod( CorsConfiguration.ALL );
+        config.setAllowedHeaders(List.of("*"));
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
