@@ -1,5 +1,6 @@
 package com.dulcenectar.java.dtos.order;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.dulcenectar.java.dtos.ResponseDto;
@@ -44,7 +45,9 @@ public class GetOrderResponseDto implements ResponseDto<Order> {
 	
 	Integer id;
 	Double totalGross;
+	String createdAt;
 	List<OrderItem> orderItems;
+	
 	
 	public GetOrderResponseDto() {
 		super();
@@ -64,6 +67,7 @@ public class GetOrderResponseDto implements ResponseDto<Order> {
 		this.id = entity.getId();
 		this.totalGross = entity.getTotalGross();
 		this.orderItems = orderItems;
+		this.createdAt = entity.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 		
 		return this;
 	}
@@ -95,6 +99,14 @@ public class GetOrderResponseDto implements ResponseDto<Order> {
 
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 
 }

@@ -1,12 +1,12 @@
 INSERT INTO products (
-  "name",
-  "info",
-  "price",
-  "img_url",
-  "category_id",
-  "gram",
-  "stock",
-  "type_gram"
+  `name`,
+  `info`,
+  `price`,
+  `img_url`,
+  `category_id`,
+  `gram`,
+  `stock`,
+  `type_gram`
 ) VALUES (
   'Vela aromática',
   'Vela de cera de abeja natural con escénica de miel',
