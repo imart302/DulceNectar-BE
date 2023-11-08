@@ -17,6 +17,9 @@ public class CorsConfig {
         // You can customize these settings to meet your specific requirements
         config.addAllowedOriginPattern("*");
         config.applyPermitDefaultValues();
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
