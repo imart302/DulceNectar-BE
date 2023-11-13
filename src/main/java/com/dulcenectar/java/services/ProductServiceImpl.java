@@ -16,24 +16,21 @@ import com.dulcenectar.java.repositories.ProductRepository;
 import com.dulcenectar.java.services.interfaces.ProductService;
 import com.dulcenectar.java.repositories.CategoryRepository;
 
-
 @Service
 public class ProductServiceImpl implements ProductService {
-	
+
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
-	
-	public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository ) {
+
+	public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
 		super();
 		this.productRepository = productRepository;
 		this.categoryRepository = categoryRepository;
 	}
-	
-	
 
 	@Override
 	public CreateProductResponseDto createProduct(CreateProductRequestDto product) {
-		
+
 		Optional<Category> category = this.categoryRepository.findByName(product.getCategory());
 		category.orElseThrow(() -> new CategoryNotFoundException());
 		Product newProduct = product.toEntity();
@@ -49,47 +46,52 @@ public class ProductServiceImpl implements ProductService {
 		ArrayList<Product> productList = (ArrayList<Product>) productRepository.findAll();
 		ArrayList<CreateProductResponseDto> productListResponse = (ArrayList<CreateProductResponseDto>) productList.stream()
 				.map(product -> new CreateProductResponseDto().fromEntity(product))
-				.collect(Collectors.toList());  	
+				.collect(Collectors.toList());
 		return productListResponse;
 	}
 
 	@Override
 	public CreateProductResponseDto updateProduct(Integer id, CreateProductRequestDto productModifyRequest) {
-		Optional <Product> productFromDB = productRepository.findById(id);
+		Optional<Product> productFromDB = productRepository.findById(id);
 		productFromDB.orElseThrow(() -> new ProductNotFoundException());
-		
+
 		Product productInfo = productFromDB.get();
-		
-		if(productModifyRequest.getCategory() !=  null) {
+
+		if (productModifyRequest.getCategory() != null) {
 			Optional<Category> category = this.categoryRepository.findByName(productModifyRequest.getCategory());
 			category.orElseThrow(() -> new CategoryNotFoundException());
 			productInfo.setCategory(category.get());
 		}
-		
-		if(productModifyRequest.getName() != null) productInfo.setName(productModifyRequest.getName());
-		if(productModifyRequest.getInfo() != null) productInfo.setInfo(productModifyRequest.getInfo());
-		if(productModifyRequest.getGram() != null) productInfo.setGram(productModifyRequest.getGram());
-		if(productModifyRequest.getImgUrl() != null) productInfo.setImgUrl(productModifyRequest.getImgUrl());
-		if(productModifyRequest.getPrice() != null) productInfo.setPrice(productModifyRequest.getPrice());
-		if(productModifyRequest.getStock() != null) productInfo.setStock(productModifyRequest.getStock());
-		if(productModifyRequest.getTypeGram() != null) productInfo.setTypeGram(productModifyRequest.getTypeGram());
-		
-		productRepository.save(productInfo);  
-		
+
+		if (productModifyRequest.getName() != null)
+			productInfo.setName(productModifyRequest.getName());
+		if (productModifyRequest.getInfo() != null)
+			productInfo.setInfo(productModifyRequest.getInfo());
+		if (productModifyRequest.getGram() != null)
+			productInfo.setGram(productModifyRequest.getGram());
+		if (productModifyRequest.getImgUrl() != null)
+			productInfo.setImgUrl(productModifyRequest.getImgUrl());
+		if (productModifyRequest.getPrice() != null)
+			productInfo.setPrice(productModifyRequest.getPrice());
+		if (productModifyRequest.getStock() != null)
+			productInfo.setStock(productModifyRequest.getStock());
+		if (productModifyRequest.getTypeGram() != null)
+			productInfo.setTypeGram(productModifyRequest.getTypeGram());
+
+		productRepository.save(productInfo);
+
 		CreateProductResponseDto updatedProduct = new CreateProductResponseDto().fromEntity(productInfo);
-		
+
 		return updatedProduct;
 	}
 
 	@Override
 	public void deleteProduct(Integer id) {
-		Optional <Product> productFromDB = productRepository.findById(id);
+		Optional<Product> productFromDB = productRepository.findById(id);
 		productFromDB.orElseThrow(() -> new ProductNotFoundException());
-		
+
 		productRepository.deleteById(id);
 		;
 	}
-	
+
 }
-
-

@@ -22,30 +22,23 @@ import com.dulcenectar.java.services.interfaces.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-    private final OrderProductsRepository orderProductsRepository;
-    
-    
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
+	private OrderProductsRepository orderProductsRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderProductsRepository orderProductsRepository) {
-		super();
-		this.orderRepository = orderRepository;
-		this.orderProductsRepository = orderProductsRepository;
-	}
-
-    public Integer createNewOrder(CreateOrderRequestDto order) {
+	public Integer createNewOrder(CreateOrderRequestDto order) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
-		
+		UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+
 		List<CreateOrderRequestDto.OrderItem> orderItems = order.getOrderItems();
-		
+
 		Order orderEntity = new Order();
 		orderEntity.setUser(user);
 		orderEntity.setAddress(order.getAddress());
 		orderEntity.setTotalGross(order.getTotalGross());
 		Order savedOrder = this.orderRepository.save(orderEntity);
-		
+
 		List<OrderProducts> orderProductList = orderItems.stream().map((item) -> {
 			OrderProducts op = new OrderProducts();
 			op.setOrder(savedOrder);
@@ -54,38 +47,36 @@ public class OrderServiceImpl implements OrderService {
 			op.setId(new OrderProducts.OrderProductId(savedOrder.getId(), item.getProductId()));
 			return op;
 		}).toList();
-		
+
 		this.orderProductsRepository.saveAll(orderProductList);
-		
+
 		return savedOrder.getId();
 	}
 
 	public List<GetOrderResponseDto> getOrders() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
-		
+		UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+
 		List<Order> orders = this.orderRepository.findAllByUserId(user.getId());
 		List<GetOrderResponseDto> orderDtos = orders.stream().map((order) -> {
 			GetOrderResponseDto dto = new GetOrderResponseDto();
 			dto.fromEntity(order);
 			return dto;
 		}).toList();
-		
+
 		return orderDtos;
 	}
-
 
 	public String deleteOrder(Integer orderId) {
 
 		Optional<Order> order = this.orderRepository.findById(orderId);
-		
-		if(order.isEmpty()) {
+
+		if (order.isEmpty()) {
 			throw new OrderNotFoundException();
 		}
-		
+
 		this.orderRepository.delete(order.get());
-		
+
 		return "OK";
 	}
-    // Puedes agregar más métodos según las necesidades de tu aplicación
 }

@@ -3,9 +3,13 @@ package com.dulcenectar.java.dtos.user;
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.User;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginUserRequestDto implements RequestDto<User> {
 
+	@NotBlank(message = "email is required")
 	private String email;
+	@NotBlank(message = "password is required")
 	private String password;
 	
 	public LoginUserRequestDto(String email, String password) {

@@ -1,21 +1,41 @@
 package com.dulcenectar.java.dtos.product;
 
+import org.hibernate.validator.constraints.URL;
+
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.Product;
 
-public class CreateProductRequestDto implements RequestDto <Product>{
-	
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
+public class CreateProductRequestDto implements RequestDto<Product> {
+
+	@NotBlank(message = "name is required")
 	private String name;
+	@NotBlank(message = "info is required")
 	private String info;
+	@NotNull(message = "gram is required")
+	@Positive(message = "gram should be positive")
 	private Float gram;
+	@NotBlank(message = "imgUrl is required")
+	@URL(message = "imgUrl should be a valid url")
 	private String imgUrl;
+	@NotNull(message = "price is required")
+	@Positive(message = "price should be positive")
 	private Double price;
+	@NotNull(message = "stock is required")
+	@PositiveOrZero(message = "stock should be 0 or more")
 	private Long stock;
+	@NotNull(message = "typeGram is required")
+	@Pattern(regexp = "l|g", message = "typeGram can only be l or g")
 	private String typeGram;
+	@NotBlank(message = "category is required")
 	private String category;
 
-
-	//Constructor
+	// Constructor
 	public CreateProductRequestDto(String name, String info, Float gram, String imgUrl, Double price, Long stock,
 			String typeGram, String category) {
 		super();
@@ -27,13 +47,13 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 		this.stock = stock;
 		this.typeGram = typeGram;
 	}
-	
-	//Void constructor
+
+	// Void constructor
 	public CreateProductRequestDto() {
-		
+
 	}
 
-	//Getters and setters
+	// Getters and setters
 	public String getName() {
 		return name;
 	}
@@ -89,7 +109,7 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 	public void setTypeGram(String typeGram) {
 		this.typeGram = typeGram;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -97,7 +117,7 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 	@Override
 	public Product toEntity() {
 		Product product = new Product();
@@ -108,8 +128,8 @@ public class CreateProductRequestDto implements RequestDto <Product>{
 		product.setPrice(this.price);
 		product.setStock(this.stock);
 		product.setTypeGram(this.typeGram);
-		
+
 		return product;
 	}
-	
+
 }

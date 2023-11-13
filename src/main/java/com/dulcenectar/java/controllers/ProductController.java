@@ -15,42 +15,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dulcenectar.java.dtos.product.CreateProductRequestDto;
 import com.dulcenectar.java.dtos.product.CreateProductResponseDto;
+import com.dulcenectar.java.dtos.product.UpdateProductRequestDto;
 import com.dulcenectar.java.services.interfaces.ProductService;
-
-
 
 @RestController
 @RequestMapping(path = "/product")
 public class ProductController {
 
 	private final ProductService productServices;
-	
+
 	public ProductController(ProductService productServices) {
 		super();
 		this.productServices = productServices;
 	}
 
 	@GetMapping()
-	public ResponseEntity< ArrayList <CreateProductResponseDto>> getProductsList(){
-		return new ResponseEntity< ArrayList <CreateProductResponseDto>>(productServices.getProductsList(), HttpStatus.OK);
+	public ResponseEntity<ArrayList<CreateProductResponseDto>> getProductsList() {
+		return new ResponseEntity<ArrayList<CreateProductResponseDto>>(productServices.getProductsList(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping()
-	public ResponseEntity<CreateProductResponseDto> createProduct(@RequestBody CreateProductRequestDto productRequest){
+	public ResponseEntity<CreateProductResponseDto> createProduct(@RequestBody CreateProductRequestDto productRequest) {
 		CreateProductResponseDto productRes = productServices.createProduct(productRequest);
 
 		return new ResponseEntity<CreateProductResponseDto>(productRes, HttpStatus.CREATED);
 	}
-	@PutMapping(path ="/{id}")
-	//Aqui va una cosa de PathAvriable
-	//Tmabien se recibe un @RequestBody
-	public ResponseEntity<CreateProductResponseDto> updateProduct(@PathVariable Integer id, @RequestBody CreateProductRequestDto productModifyRequest){
+
+	@PutMapping(path = "/{id}")
+	// Aqui va una cosa de PathAvriable
+	// Tmabien se recibe un @RequestBody
+	public ResponseEntity<CreateProductResponseDto> updateProduct(@PathVariable Integer id,
+			@RequestBody UpdateProductRequestDto productModifyRequest) {
 		CreateProductResponseDto updatedProduct = productServices.updateProduct(id, productModifyRequest);
 		return new ResponseEntity<CreateProductResponseDto>(updatedProduct, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping(path = "{id}")
-	public ResponseEntity<Object> deleteProduct(@PathVariable Integer id){
+	public ResponseEntity<Object> deleteProduct(@PathVariable Integer id) {
 		productServices.deleteProduct(id);
 		return new ResponseEntity<Object>("Succesfully deleted", HttpStatus.OK);
 	}

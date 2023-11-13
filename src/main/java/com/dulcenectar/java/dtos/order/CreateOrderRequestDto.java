@@ -3,6 +3,11 @@ package com.dulcenectar.java.dtos.order;
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.Order;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.util.List;
 
 
@@ -10,7 +15,11 @@ public class CreateOrderRequestDto implements RequestDto<Order> {
 	
 
 	public static class OrderItem {
+		@NotNull(message = "productId is required")
+		@Positive(message = "productId should be positive")
 		private Integer productId;
+		@NotNull(message = "quantity is required")
+		@Positive(message = "quantity should be positive")
 		private Integer quantity;
 		
 		public OrderItem(Integer productId, Integer quantity) {
@@ -39,8 +48,11 @@ public class CreateOrderRequestDto implements RequestDto<Order> {
 		
 	}
 
+	@Positive(message = "totalGross should be positive")
 	private Float totalGross;
+	@NotBlank(message = "address is required")
 	private String address;
+	@Valid
 	private List<OrderItem> orderItems;
 
 	public CreateOrderRequestDto(Float totalGross, String address, List<OrderItem> orderItems) {

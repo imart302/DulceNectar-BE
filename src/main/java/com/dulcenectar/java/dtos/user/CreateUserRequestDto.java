@@ -3,11 +3,19 @@ package com.dulcenectar.java.dtos.user;
 import com.dulcenectar.java.dtos.RequestDto;
 import com.dulcenectar.java.models.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class CreateUserRequestDto implements RequestDto<User> {
 
+	@NotBlank(message = "firsName is required")
 	private String firstName;
+	@NotBlank(message = "lastName is required")
 	private String lastName;
+	@NotBlank(message = "email is required")
+	@Email(message = "email should be a valid email")
 	private String email;
+	@NotBlank(message = "password is required")
 	private String password;
 
 	public CreateUserRequestDto(String firstName, String lastName, String email, String password) {
