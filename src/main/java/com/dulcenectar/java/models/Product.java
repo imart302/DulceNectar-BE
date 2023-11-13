@@ -9,7 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,7 +19,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String name;
 	private String info;
 
@@ -31,15 +32,33 @@ public class Product {
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+
 	
-	// Category must be a Category object
+	@ManyToOne
+	@JoinColumn(name="category_id", nullable=false)
+	private Category category;
+/*
+ * Quiza este no se necesie, como mencionaan en la clase, Oder no tiene relacion fundamental con las ordenes, mas que nada User es el que usa las orderPoducts
+ * @OneToMany(mappedBy = "Product")
+ * Private Set<OrderProducts> orderProduct;
+ * 
+ */
+
+/*
+ * Aqui,  EN el conolador de reviews ya hay un et rEviews, se necesiaia aqui?`
+ * El frontEnd no usa ninguna paina que muestre los reviews de un producto, pero tiene una seccion con todas las reviews
+ * En esa seccion se haía un filtro
+ * @OneToMany(mappedBy = "Product")
+ * Private Set<Review> = reviewsList;
+ * 
+ */
+
+
 	
-	//@ManyToOne
-	//@JoinColumn(name="category_id", nullable=false)
-	//private Category category
-	
-	public Product(Long id, String name, String info, Float gram, String imgUrl, Double price,
-			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt) {
+
+
+	public Product(Integer id, String name, String info, Float gram, String imgUrl, Double price,
+			Long stock, String typeGram, LocalDateTime createdAt, LocalDateTime updatedAt, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,9 +70,10 @@ public class Product {
 		this.typeGram = typeGram;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.category = category;
 	}
 	
-	public Product(Long id) {
+	public Product(Integer id) {
 		this.id = id;
 	}
 	
@@ -61,11 +81,11 @@ public class Product {
 		
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -139,6 +159,14 @@ public class Product {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override

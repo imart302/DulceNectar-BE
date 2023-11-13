@@ -19,7 +19,7 @@ public class CreateUserResponseDto implements ResponseDto<User> {
 	}
 
 	public CreateUserResponseDto() {
-		
+		super();
 	}
 
 	public String getFirstName() {
@@ -59,7 +59,7 @@ public class CreateUserResponseDto implements ResponseDto<User> {
 		this.id = entity.getId();
 		this.firstName = entity.getFirstName();
 		this.lastName = entity.getLastName();
-		this.email = entity.getLastName();
+		this.email = entity.getEmail();
 		return this;
 	}
 }

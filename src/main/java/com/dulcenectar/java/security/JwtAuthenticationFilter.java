@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dulcenectar.java.exceptions.JwtErrorException;
 import com.dulcenectar.java.services.interfaces.JwtService;
 
 import org.springframework.util.StringUtils;
@@ -45,7 +46,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         //username is email
-        username=jwtService.getUserEmailFromToken(token);
+        try {
+        	username=jwtService.getUserEmailFromToken(token);
+        } catch(JwtErrorException error) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
 
         if (username!=null && SecurityContextHolder.getContext().getAuthentication()==null)
         {

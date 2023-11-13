@@ -29,32 +29,34 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+
+	protected Integer id;
 	
-	private String firstName;
+	protected String firstName;
 	
-	private String lastName;
+	protected String lastName;
 	
-	private String email;
+	protected String email;
 	
-	private String password;
+	protected String password;
 	
 
 	@Column(length = 32, columnDefinition = "roles default roles.USER")
 	@Enumerated(value=EnumType.STRING)
-	private Role role = Role.USER;
+	protected Role role = Role.USER;
 	
 	@CreationTimestamp
-	private LocalDateTime created_at;
-	
-	@UpdateTimestamp
-	private LocalDateTime updated_at;
+    protected LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    protected LocalDateTime updatedAt;
+
 	
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 //	List<Review> userReviews = new ArrayList<Review>();
 
-	public User(Long id, String firstName, String lastName, String email, String password, Role role,
-			LocalDateTime created_at, LocalDateTime updated_at) {
+	public User(Integer id, String firstName, String lastName, String email, String password, Role role,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -62,11 +64,11 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 	
-	public User(long id, String firstName, String lastName, String email, String password) {
+	public User(Integer id, String firstName, String lastName, String email, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -75,7 +77,7 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(long id) {
+	public User(Integer id) {
 		this.id = id;
 	}
 
@@ -83,11 +85,11 @@ public class User {
 		super();
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -131,34 +133,27 @@ public class User {
 		this.role = role;
 	}
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
-//	public List<Review> getUserReviews() {
-//		return userReviews;
-//	}
-//
-//	public void setUserReviews(List<Review> userReviews) {
-//		this.userReviews = userReviews;
-//	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", role=" + role + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + "]";
+				+ ", password=" + password + ", role=" + role + ", created_at=" + createdAt + ", updated_at="
+				+ updatedAt + "]";
 	}
 }

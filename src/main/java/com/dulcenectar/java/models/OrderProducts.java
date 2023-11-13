@@ -1,96 +1,128 @@
 package com.dulcenectar.java.models;
 
-//import java.time.LocalDateTime;
+import java.io.Serializable;
 
-//import org.hibernate.annotations.CreationTimestamp;
-//import org.hibernate.annotations.UpdateTimestamp;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 
-//import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "order_products")
 public class OrderProducts {
-	//Se pone porque Spring se quejó
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
 	
-	private long user_id;
-	
-	private long order_id;
-	
-	private long quantity;
-	
-	//private double subtotal;
-	
-	
-	public OrderProducts(long id, long user_id, long order_id, long quantity) {
-		super();
-		this.id = id;
-		this.user_id = user_id;
-		this.order_id = order_id;
-		this.quantity = quantity;
-		//this.subtotal = subtotal;
-	}
-	
-	
+	@Embeddable
+	public static class OrderProductId implements Serializable {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		@Column(name = "order_id")
+		private Integer orderId;
+		@Column(name = "product_id")
+		private Integer productId;
+		
+		public OrderProductId(Integer orderId, Integer productId) {
+			super();
+			this.orderId = orderId;
+			this.productId = productId;
+		}
+		
+		public OrderProductId() {
+			super();
+		}
 
-	  public OrderProducts(long id) {
+		public Integer getOrderId() {
+			return orderId;
+		}
+
+		public void setOrderId(Integer orderId) {
+			this.orderId = orderId;
+		}
+
+		public Integer getProductId() {
+			return productId;
+		}
+
+		public void setProductId(Integer productId) {
+			this.productId = productId;
+		}
+		
+	}
+	
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@EmbeddedId
+	private OrderProductId id;
+	private Integer quantity;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("orderId")
+	@JoinColumn(name = "order_id")
+	private Order order;
+		
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("productId")
+	@JoinColumn(name = "product_id")
+	private Product product;
+
+	public OrderProducts(OrderProductId id, Integer quantity, Order order, Product product) {
 		super();
 		this.id = id;
+		this.quantity = quantity;
+		this.order = order;
+		this.product = product;
 	}
-     
+	
 	public OrderProducts() {
 		super();
 	}
-	 
-	//Setters and Getters
 
-	public long getId() {
+
+	public OrderProductId getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(OrderProductId id) {
 		this.id = id;
 	}
 
-	public long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
-
-	public long getOrder_id() {
-		return order_id;
-	}
-
-	public void setOrder_id(long order_id) {
-		this.order_id = order_id;
-	}
-
-	public long getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(long quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	//public double getSubtotal() {
-		//return subtotal;
-	//}
+	public Order getOrder() {
+		return order;
+	}
 
-	//public void setSubtotal(double subtotal) {
-		//this.subtotal = subtotal;
-	//}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderProducts [quantity=" + quantity + ", product=" + product + "]";
+	}
+	
 }

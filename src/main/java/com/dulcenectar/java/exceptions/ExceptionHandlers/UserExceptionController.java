@@ -16,7 +16,7 @@ import com.dulcenectar.java.exceptions.UserNotFoundException;
  */
 @ControllerAdvice
 public class UserExceptionController {
-
+	
 	@ExceptionHandler(value = EmailAlreadyUsedException.class)
 	public ResponseEntity<ExceptionDto> emailExistsHandler(EmailAlreadyUsedException exception){
 		ExceptionDto exc = new ExceptionDto();
